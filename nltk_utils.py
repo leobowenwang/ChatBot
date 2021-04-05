@@ -5,8 +5,8 @@ import nltk
 # stemmer = PorterStemmer()
 
 # https://www.nltk.org/_modules/nltk/stem/snowball.html
-from nltk.stem.snowball import GermanStemmer
-stemmer = GermanStemmer
+from nltk.stem.snowball import SnowballStemmer
+stemmer = SnowballStemmer("german")
 
 def tokenize(sentence):
     """
