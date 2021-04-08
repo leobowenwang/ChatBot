@@ -43,9 +43,17 @@ def get_response(text):
                 return f"{random.choice(intent['responses'])}"
     else:
         return f"Ich habe es nicht verstanden..."
-
-
 """
+
+import geocoder
+
+def get_location():
+    myloc = geocoder.freegeoip('.114.129.238')
+    return f"{myloc.latlng}"
+
+
+
+
 bot_name = "Bobby"
 
 print("Lass uns chatten! ('quit' to exit)")

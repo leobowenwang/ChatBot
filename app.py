@@ -8,10 +8,12 @@ app = Flask(__name__)
 def home():
     return render_template("index.html")
 
+
 @app.route("/get")
 def get_bot_response():
     userInput = request.args.get('msg')
     return str(chat.get_response(userInput))
+    #return str(chat.get_location())
 
 if __name__ == "__main__":
     app.run()

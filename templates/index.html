@@ -2,57 +2,56 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <title>BobbyBot</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <title>BobbyBot</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 
 <body>
-  <!-- partial:index.partial.html -->
-  <section class="msger">
+<!-- partial:index.partial.html -->
+<section class="msger">
     <header class="msger-header">
-      <div class="msger-header-title">
-        <img src="/static/img/wien.png" height="40"></img>
-      </div>
+        <div class="msger-header-title">
+            <img src="/static/img/wien.png" height="40"></img>
+        </div>
     </header>
 
     <main class="msger-chat">
-      <div class="msg left-msg">
-        <div class="msg-img" style="background-image: url(/static/img/wienbot.png)"></div>
+        <div class="msg left-msg">
+            <div class="msg-img" style="background-image: url(/static/img/wienbot.png)"></div>
 
-        <div class="msg-bubble">
-          <div class="msg-info">
-            <div class="msg-info-name">BobbyBot</div>
-            <div class="msg-info-time">
-                <!---TODO <script> CurrentTime </script> --->
+            <div class="msg-bubble">
+                <div class="msg-info">
+                    <div class="msg-info-name">BobbyBot</div>
+                    <div class="msg-info-time">
+                        <!---TODO <script> CurrentTime </script> --->
+                    </div>
+                </div>
+
+                <div class="msg-text">
+                    Hallo! 😄
+
+                </div>
             </div>
-          </div>
-
-          <div class="msg-text">
-            Hallo! 😄
-          </div>
         </div>
-      </div>
 
     </main>
 
     <form class="msger-inputarea">
-      <input type="text" class="msger-input" id="textInput" placeholder="Geben Sie Ihre Nachricht ein...">
-      <button type="submit" class="msger-send-btn">Senden</button>
+        <input type="text" class="msger-input" id="textInput" placeholder="Geben Sie Ihre Nachricht ein...">
+        <button type="submit" class="msger-send-btn">Senden</button>
     </form>
-  </section>
-  <!-- partial -->
-  <script src='https://use.fontawesome.com/releases/v5.0.13/js/all.js'></script>
-  <script>
-
+</section>
+<!-- partial -->
+<script src='https://use.fontawesome.com/releases/v5.0.13/js/all.js'></script>
+<script>
     const msgerForm = get(".msger-inputarea");
     const msgerInput = get(".msger-input");
     const msgerChat = get(".msger-chat");
-
 
     // Icons made by Freepik from www.flaticon.com
     const BOT_IMG = "/static/img/wienbot.png";
@@ -61,19 +60,20 @@
     const PERSON_NAME = "Benutzer";
 
     msgerForm.addEventListener("submit", event => {
-      event.preventDefault();
+        event.preventDefault();
 
-      const msgText = msgerInput.value;
-      if (!msgText) return;
+        const msgText = msgerInput.value;
+        if (!msgText) return;
 
-      appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
-      msgerInput.value = "";
-      botResponse(msgText);
+        appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
+        msgerInput.value = "";
+        botResponse(msgText);
+
     });
 
     function appendMessage(name, img, side, text) {
-      //   Simple solution for small apps
-      const msgHTML = `
+        //   Simple solution for small apps
+        const msgHTML = `
 <div class="msg ${side}-msg">
   <div class="msg-img" style="background-image: url(${img})"></div>
   <div class="msg-bubble">
@@ -86,39 +86,67 @@
 </div>
 `;
 
-      msgerChat.insertAdjacentHTML("beforeend", msgHTML);
-      msgerChat.scrollTop += 500;
+        msgerChat.insertAdjacentHTML("beforeend", msgHTML);
+        msgerChat.scrollTop += 500;
     }
+
 
     function botResponse(rawText) {
 
-      // Bot Response
-      $.get("/get", { msg: rawText }).done(function (data) {
-        console.log(rawText);
-        console.log(data);
-        const msgText = data;
-        appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
+        // Bot Response
+        $.get("/get", {msg: rawText}).done(function (data) {
+            console.log(rawText);
+            console.log(data);
+            const msgText = data;
 
-      });
+            if (msgText.includes("Hier:")) {
+                appendLocation(BOT_NAME, BOT_IMG, "left", rawText);
+            } else {
+                appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
+            }
 
+        });
     }
 
 
     // Utils
     function get(selector, root = document) {
-      return root.querySelector(selector);
+        return root.querySelector(selector);
     }
 
     function formatDate(date) {
-      const h = "0" + date.getHours();
-      const m = "0" + date.getMinutes();
+        const h = "0" + date.getHours();
+        const m = "0" + date.getMinutes();
 
-      return `${h.slice(-2)}:${m.slice(-2)}`;
+        return `${h.slice(-2)}:${m.slice(-2)}`;
+    }
+
+    function appendLocation(name, img, side, rawText) {
+
+
+        Text = rawText.substr(7);
+
+        const msgHTML = `
+<div class="msg ${side}-msg">
+  <div class="msg-img" style="background-image: url(${img})"></div>
+  <div class="msg-bubble">
+    <div class="msg-info">
+      <div class="msg-info-name">${name}</div>
+      <div class="msg-info-time">${formatDate(new Date())}</div>
+    </div>
+Hier ist ${Text}.
+<iframe src="http://maps.google.com/maps?q=${Text}&z=10&output=embed" width="100%" height="50%" frameborder="0" style="border:0" allowfullscreen></iframe>
+  </div>
+</div>
+
+`;
+
+        msgerChat.insertAdjacentHTML("beforeend", msgHTML);
+        msgerChat.scrollTop += 500;
     }
 
 
-
-  </script>
+</script>
 
 </body>
 

@@ -25,13 +25,23 @@
       "responses": [
         "Mein Name ist Bobby Bot!"
       ]
-    },{
+    },
+    {
       "tag": "wetter",
       "patterns": [
         "Wie ist das Wetter?"
       ],
       "responses": [
         "Es ist sonnig"
+      ]
+    },
+    {
+      "tag": "Ort",
+      "patterns": [
+        "Wo ist?"
+      ],
+      "responses": [
+        "Hier:"
       ]
     }
   ]
