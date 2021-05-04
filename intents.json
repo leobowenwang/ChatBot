@@ -43,6 +43,33 @@
       "responses": [
         "Hier:"
       ]
+    },
+    {
+      "tag": "Reisepass verloren",
+      "patterns": [
+        "Ich habe meinen Reisepass verloren, was kann ich tun?"
+      ],
+      "responses": [
+        "Wo haben Sie den Reisepass im Inland oder Ausland verloren?"
+      ]
+    },
+    {
+      "tag": "Inland",
+      "patterns": [
+        "Inland."
+      ],
+      "responses": [
+        "Bei einem Verlust des Reisepasses in Österreich ist keine Verlustanzeige notwendig. Es genügt, im Rahmen der Beantragung eines neuen Reisepasses den Verlust des Passes mündlich bei der Passbehörde zu melden."
+      ]
+    },
+    {
+      "tag": "Ausland",
+      "patterns": [
+        "Ausland"
+      ],
+      "responses": [
+        "Im Ausland muss zunächst eine Verlustanzeige bei der örtlichen Polizei erstattet werden.Aufgrund dieser Anzeige erstellt dann die österreichische Vertretungsbehörde (→ BMEIA) (Botschaft, Konsulat) vor Ort einen Notpass für die Rückreise.\n\nZurück in Österreich genügt es, im Rahmen der Beantragung eines neuen Reisepasses den Verlust des Passes mündlich bei der Passbehörde zu melden – eine Verlustanzeige ist also im Inland nicht nötig."
+      ]
     }
   ]
 }
